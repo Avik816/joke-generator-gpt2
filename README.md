@@ -7,4 +7,4 @@ This repository contains the code and data for a joke generator model using GPT-
 
 ## 🚀 Overview
 
-The goal of this project is to build a lightweight **joke generator** that can run efficiently on **CPU-based systems**.
+The goal of this project is to build a lightweight **joke generator** that can run efficiently on **CPU-only-based systems**.
