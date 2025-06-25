@@ -8,3 +8,6 @@ full_raw_dataset_creation()
 
 print('\n\nPreprocessing the dataset ...')
 cleaning_dataset()"""
+
+print('\n\Splitting dataset into Train-Val-Test ...')
+data_splitting()
