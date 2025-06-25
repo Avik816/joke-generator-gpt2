@@ -1,0 +1,4 @@
+# Dataset sizes
+TRAIN_SIZE = 0.80
+VAL_SIZE = 0.10
+TEST_SIZE = 0.10
