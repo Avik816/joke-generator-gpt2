@@ -7,7 +7,9 @@ print('\n\nCreating the raw full dataset ...')
 full_raw_dataset_creation()
 
 print('\n\nPreprocessing the dataset ...')
-cleaning_dataset()"""
+cleaning_dataset()
 
 print('\n\Splitting dataset into Train-Val-Test ...')
-data_splitting()
+data_splitting()"""
+
+print('\n\nModel Training ...')

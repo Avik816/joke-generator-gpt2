@@ -1,4 +1,6 @@
-# model trainer
+# Model trainng will be done here
+# all the necessay items will be imported here
+
 import tensorflow as tf
 from .model import model
 from .data import train_dataset, val_dataset
@@ -32,3 +34,5 @@ history = model.fit(
 )
 
 model.save_pretrained(OUTPUT_DIR)
+
+# after this the plotting function will be called !

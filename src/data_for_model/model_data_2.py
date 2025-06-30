@@ -26,7 +26,7 @@ def load_dataset(file_path):
 
     return dataset
 
-
-train_dataset = load_dataset(CONFIG.TRAIN_PATH)
-val_dataset = load_dataset(CONFIG.VAL_PATH)
-test_dataset = load_dataset(CONFIG.TEST_PATH)
+def create_model_dataset():
+    train_dataset = load_dataset(CONFIG.TRAIN_PATH)
+    val_dataset = load_dataset(CONFIG.VAL_PATH)
+    test_dataset = load_dataset(CONFIG.TEST_PATH)
