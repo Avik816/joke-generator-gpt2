@@ -30,3 +30,5 @@ def create_model_dataset():
     train_dataset = load_dataset(CONFIG.TRAIN_PATH)
     val_dataset = load_dataset(CONFIG.VAL_PATH)
     test_dataset = load_dataset(CONFIG.TEST_PATH)
+
+    return train_dataset, val_dataset

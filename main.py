@@ -13,3 +13,4 @@ print('\n\Splitting dataset into Train-Val-Test ...')
 data_splitting()"""
 
 print('\n\nModel Training ...')
+training_gpt2_small()

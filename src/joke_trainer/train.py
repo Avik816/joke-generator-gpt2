@@ -3,15 +3,18 @@
 
 import tensorflow as tf
 from .model import model
-from .data import train_dataset, val_dataset
-from .config import EPOCHS, OUTPUT_DIR
+from data_for_model.model_data_2 import create_model_dataset
+from .. import CONFIG
 import os
 
+
+train_dataset, val_dataset = create_model_dataset()
+
 checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
-    filepath=os.path.join(OUTPUT_DIR, "best_model.keras"),
+    filepath=os.path.join(CONFIG.OUTPUT_DIR, 'best_model.keras'),
     save_best_only=True,
-    monitor="val_loss",
-    mode="min"
+    monitor='val_loss',
+    mode='min'
 )
 
 earlystop_cb = tf.keras.callbacks.EarlyStopping(
@@ -26,13 +29,14 @@ reduce_lr_cb = tf.keras.callbacks.ReduceLROnPlateau(
     verbose=1
 )
 
-history = model.fit(
-    train_dataset,
-    validation_data=val_dataset,
-    epochs=EPOCHS,
-    callbacks=[checkpoint_cb, earlystop_cb, reduce_lr_cb]
-)
+def training_gpt2_small():
+    history = model.fit(
+        train_dataset,
+        validation_data=val_dataset,
+        epochs=CONFIG.EPOCHS,
+        callbacks=[checkpoint_cb, earlystop_cb, reduce_lr_cb]
+    )
 
-model.save_pretrained(OUTPUT_DIR)
+    model.save_pretrained(CONFIG.OUTPUT_DIR)
 
 # after this the plotting function will be called !

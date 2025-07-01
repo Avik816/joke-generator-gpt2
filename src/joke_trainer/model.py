@@ -1,10 +1,8 @@
+from data_for_model.model_data_2 import tokenizer
 from transformers import TFGPT2LMHeadModel
 import tensorflow as tf
 from .. import CONFIG
 
-
-# Need to load the tokenizer here
-# make itr all into a function
 
 gpt2_small_model = TFGPT2LMHeadModel.from_pretrained(CONFIG.MODEL_NAME)
 gpt2_small_model.resize_token_embeddings(len(tokenizer))
