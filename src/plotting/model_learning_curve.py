@@ -1,12 +1,12 @@
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as mplot
 
 # Plot training vs validation loss
-plt.plot(history.history['loss'], label='Training Loss')
-plt.plot(history.history['val_loss'], label='Validation Loss')
-plt.title("Loss Curve")
-plt.xlabel("Epochs")
-plt.ylabel("Loss")
-plt.legend()
-plt.grid(True)
-plt.tight_layout()
-plt.show()
+mplot.plot(history.history['loss'], label='Training Loss')
+mplot.plot(history.history['val_loss'], label='Validation Loss')
+mplot.title("Loss Curve")
+mplot.xlabel("Epochs")
+mplot.ylabel("Loss")
+mplot.legend()
+mplot.grid(True)
+mplot.tight_layout()
+mplot.show()
