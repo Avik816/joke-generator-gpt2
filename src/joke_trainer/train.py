@@ -1,17 +1,15 @@
-# Model trainng will be done here
-# all the necessay items will be imported here
-
+import os, datetime
 import tensorflow as tf
 from .model import model
 from data_for_model.model_data_2 import create_model_dataset
 from .. import CONFIG
-import os
 
 
+timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 train_dataset, val_dataset = create_model_dataset()
 
 checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
-    filepath=os.path.join(CONFIG.OUTPUT_DIR, 'best_model.keras'),
+    filepath=os.path.join(CONFIG.OUTPUT_DIR, 'best_model_{timestamp}_epoch{{epoch:02d}}.keras'),
     save_best_only=True,
     monitor='val_loss',
     mode='min'
