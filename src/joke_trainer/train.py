@@ -3,13 +3,17 @@ import tensorflow as tf
 from .model import model
 from data_for_model.model_data_2 import create_model_dataset
 from .. import CONFIG
+from ..plotting.model_learning_curve import plot_learning_curve
 
 
 timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 train_dataset, val_dataset = create_model_dataset()
 
 checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
-    filepath=os.path.join(CONFIG.OUTPUT_DIR, 'best_model_{timestamp}_epoch{{epoch:02d}}.keras'),
+    filepath=os.path.join(
+        CONFIG.OUTPUT_DIR_MODEL,
+        f'best_model_{timestamp}_epoch-{{epoch:02d}}_loss-{{val_loss:.4f}}.keras'
+    ),
     save_best_only=True,
     monitor='val_loss',
     mode='min'
@@ -35,6 +39,5 @@ def training_gpt2_small():
         callbacks=[checkpoint_cb, earlystop_cb, reduce_lr_cb]
     )
 
-    model.save_pretrained(CONFIG.OUTPUT_DIR)
-
-# after this the plotting function will be called !
+    # Plotting the learning curve of the present model
+    plot_learning_curve(history=history)
