@@ -8,7 +8,8 @@ MODEL_NAME = 'gpt2'
 TRAIN_PATH = 'data/jokes-train.txt'
 VAL_PATH = 'data/jokes-val.txt'
 TEST_PATH = 'data/jokes-test.txt'
-OUTPUT_DIR = 'models'
+OUTPUT_DIR_MODEL = 'models'
+OUTPUT_DIR_PLOT = 'plots'
 
 # Model hyper-parameters
 BATCH_SIZE = 4
