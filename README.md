@@ -1,4 +1,4 @@
-# Joke Generator by Fine tuning GPT-2 😆
+# Joke Generator 😆 by Fine tuning GPT-2 🤖
 
 ## 🛠️ Project Status: In Progress
 
