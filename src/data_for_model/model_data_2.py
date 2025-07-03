@@ -4,26 +4,62 @@ from .. import CONFIG
 
 
 tokenizer = GPT2Tokenizer.from_pretrained(CONFIG.MODEL_NAME)
-tokenizer.pad_token = tokenizer.eos_token
+tokenizer.pad_token = tokenizer.eos_token  # GPT2 has no pad_token, so use eos_token
 
-def encode_line(line):
-    tokens = tokenizer.encode(line.numpy().decode('utf-8'))
-    tokens = tokens[:CONFIG.BLOCK_SIZE]
-    
-    return tf.convert_to_tensor(tokens, dtype=tf.int32)
+def encode_example(line):
+    # Tokenize the input text
+    encoded = tokenizer(
+        line.numpy().decode('utf-8'),
+        padding='max_length',
+        truncation=True,
+        max_length=CONFIG.BLOCK_SIZE,
+        return_attention_mask=True
+    )
 
-def tf_encode_line(line):
-    return tf.py_function(func=encode_line, inp=[line], Tout=tf.int32)
+    input_ids = tf.convert_to_tensor(encoded['input_ids'], dtype=tf.int32)
+    attention_mask = tf.convert_to_tensor(encoded['attention_mask'], dtype=tf.int32)
+    labels = tf.convert_to_tensor(encoded['input_ids'], dtype=tf.int32)
+
+    return input_ids, attention_mask, labels
+
+
+def tf_encode_example(line):
+    input_ids, attention_mask, labels = tf.py_function(
+        func=encode_example,
+        inp=[line],
+        Tout=(tf.int32, tf.int32, tf.int32)
+    )
+
+    # Set shapes manually (important for batching)
+    input_ids.set_shape([CONFIG.BLOCK_SIZE])
+    attention_mask.set_shape([CONFIG.BLOCK_SIZE])
+    labels.set_shape([CONFIG.BLOCK_SIZE])
+
+    # Return as a dictionary (model expects this)
+    return {
+        'input_ids': input_ids,
+        'attention_mask': attention_mask,
+        'labels': labels
+    }
 
 def load_dataset(file_path):
     dataset = tf.data.TextLineDataset(file_path)
-    dataset = dataset.map(tf_encode_line)
-    dataset = dataset.padded_batch(
-        CONFIG.BATCH_SIZE,
-        padded_shapes=[CONFIG.BLOCK_SIZE],
-        padding_values=tokenizer.pad_token_id
-    )
+    dataset = dataset.map(tf_encode_example)
 
+    # Define padded shapes for dict elements
+    padded_shapes = {
+        'input_ids': [CONFIG.BLOCK_SIZE],
+        'attention_mask': [CONFIG.BLOCK_SIZE],
+        'labels': [CONFIG.BLOCK_SIZE]
+    }
+
+    padding_values = {
+        'input_ids': tokenizer.pad_token_id,
+        'attention_mask': 0,
+        'labels': tokenizer.pad_token_id
+    }
+
+    dataset = dataset.padded_batch(CONFIG.BATCH_SIZE, padded_shapes=padded_shapes, padding_values=padding_values)
     return dataset
 
 def create_model_dataset():
