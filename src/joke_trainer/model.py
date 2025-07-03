@@ -24,9 +24,9 @@ for layer in gpt2_small_model.transformer.h[-3:]:
 gpt2_small_model.transformer.ln_f.trainable = True
 gpt2_small_model.lm_head.trainable = True
 
-optimizer = tf.keras.optimizers.Adam(learning_rate=CONFIG.LEARNING_RATE)
-loss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
-
-gpt2_small_model.compile(optimizer=optimizer, loss=loss_fn)
+gpt2_small_model.compile(
+    optimizer=tf.keras.optimizers.Adam(learning_rate=CONFIG.LEARNING_RATE),
+    loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+)
 
 gpt2_small_model.summary()
