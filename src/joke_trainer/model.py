@@ -45,7 +45,7 @@ def setup_model(model_name, learning_rate):
     # Print model summary
     gpt2_small_model.summary()
     
-    for layer in gpt2_small_model.layers:
-        print(layer.name)
+    '''for layer in gpt2_small_model.layers:
+        print(layer.name)'''
 
     return gpt2_small_model
