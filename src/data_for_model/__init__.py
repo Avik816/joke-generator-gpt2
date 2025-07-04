@@ -1,1 +1,0 @@
-from .model_data_2 import *

@@ -116,7 +116,7 @@ def cleaning_dataset():
 
     # Formatting texts for GPT-2 model
     dataset = dataset.with_columns(
-        ('Q: ' + polars.col('question') + '\nA: ' + polars.col('response') + '\n<|endoftext|>').
+        ('Q: ' + polars.col('question') + ' A: ' + polars.col('response') + ' <|endoftext|>').
         alias('jokes')
     )
     print('\nFinal dataset after formatting ... \n')

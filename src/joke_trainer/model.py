@@ -1,11 +1,11 @@
 from ..data_for_model.model_data_2 import tokenizer
-from transformers import TFGPT2LMHeadModel, GPT2Tokenizer
+from transformers import TFGPT2LMHeadModel
 import tensorflow as tf
 
 
 def setup_model(model_name, learning_rate):
     # Load model
-    gpt2_small_model = TFGPT2LMHeadModel.from_pretrained("gpt2")
+    gpt2_small_model = TFGPT2LMHeadModel.from_pretrained(model_name)
     gpt2_small_model.resize_token_embeddings(len(tokenizer))
     gpt2_small_model.config.pad_token_id = tokenizer.pad_token_id
 

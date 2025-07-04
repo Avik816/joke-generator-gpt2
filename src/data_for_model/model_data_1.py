@@ -3,7 +3,7 @@ from .. import CONFIG
 
 
 def write_into_file(dataset, filename):
-    sample_list = [samples + '\n\n' for samples in dataset['jokes']]
+    sample_list = [samples + '\n' for samples in dataset['jokes']]
 
     with open(file=f'data/jokes-{filename}.txt', mode='w', encoding='UTF-8') as fp:
         fp.writelines(sample_list)
