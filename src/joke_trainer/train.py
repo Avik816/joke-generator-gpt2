@@ -4,7 +4,7 @@ from .model import setup_model
 from ..data_for_model.model_data_2 import create_model_dataset
 from .. import CONFIG
 from ..plotting.model_learning_curve import plot_learning_curve
-import math
+# import math
 
 
 model = setup_model(CONFIG.MODEL_NAME, CONFIG.LEARNING_RATE)
@@ -40,21 +40,21 @@ csv_logger_cb = tf.keras.callbacks.CSVLogger(
 )
 
 def training_gpt2_small():
-    with open(CONFIG.TRAIN_PATH, 'r', encoding='utf-8') as fp:
+    '''with open(CONFIG.TRAIN_PATH, 'r', encoding='utf-8') as fp:
         num_samples = sum(1 for line in fp if "<|endoftext|>" in line)
     TRAIN_STEPS = math.ceil(num_samples / CONFIG.BATCH_SIZE)
 
     num_samples = 0
     with open(CONFIG.VAL_PATH, 'r', encoding='utf-8') as fp:
         num_samples = sum(1 for line in fp if "<|endoftext|>" in line)
-    VAL_STEPS = math.ceil(num_samples / CONFIG.BATCH_SIZE)
+    VAL_STEPS = math.ceil(num_samples / CONFIG.BATCH_SIZE)'''
 
     history = model.fit(
         train_dataset,
         validation_data=val_dataset,
         epochs=CONFIG.EPOCHS,
-        steps_per_epoch=TRAIN_STEPS,
-        validation_steps=VAL_STEPS,
+        # steps_per_epoch=TRAIN_STEPS,
+        # validation_steps=VAL_STEPS,
         callbacks=[earlystop_cb, checkpoint_cb, reduce_lr_cb, csv_logger_cb]
     )
 
