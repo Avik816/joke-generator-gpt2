@@ -111,9 +111,10 @@ def tf_encode_example(line):
     }
 
 # Generic loader with shuffle and prefetch
-def load_dataset(file_path):
+def load_dataset(file_path, shuffle):
     dataset = tf.data.TextLineDataset(file_path)
-    dataset = dataset.shuffle(buffer_size=1000)  # ✅ Shuffle for generalization
+    if shuffle == True:
+        dataset = dataset.shuffle(buffer_size=1000)  # ✅ Shuffle for generalization
     dataset = dataset.map(tf_encode_example, num_parallel_calls=tf.data.AUTOTUNE)
 
     padded_shapes = {
@@ -134,8 +135,8 @@ def load_dataset(file_path):
 
 # Main function to return datasets
 def create_model_dataset():
-    train_dataset = load_dataset(CONFIG.TRAIN_PATH)
-    val_dataset = load_dataset(CONFIG.VAL_PATH)
+    train_dataset = load_dataset(CONFIG.TRAIN_PATH, shuffle=True)
+    val_dataset = load_dataset(CONFIG.VAL_PATH, shuffle=False)
     # test_dataset = load_dataset(CONFIG.TEST_PATH)
     
     return train_dataset, val_dataset
