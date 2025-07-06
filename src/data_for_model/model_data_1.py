@@ -1,3 +1,6 @@
+# This script divides the data into the respective train-val-test sets.
+# THe ratio for division of the files are accessed from the config.py file.
+
 import polars
 from .. import CONFIG
 

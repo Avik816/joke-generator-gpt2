@@ -1,6 +1,6 @@
 # This scripts adds the separated files into one single csv file,
 # as the files are unequally divided. Also, there is no Validation set.
-# Sklearn's Train-Test_Split will be used to split the files into its respective train-val-test sets.
+# Custom-defined ratio will be used to split the files into its respective train-val-test sets.
 
 import polars
 

@@ -69,6 +69,14 @@ def create_model_dataset():
 
     return train_dataset, val_dataset'''
 
+'''
+Preparing the data for the model.
+Tokenizing the data and converting it to model specific tensor.
+And returning the dictionary that carries this info for the model to ultimately learn.
+
+Shuffling is used for introducing randomization to the model and thus generalizing it better.
+A buffer of 1000 is used.
+'''
 
 import tensorflow as tf
 from transformers import GPT2Tokenizer
