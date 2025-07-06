@@ -1,3 +1,9 @@
+'''
+This script describes the model's training parameters.
+It sets up the model's callbacks to prevent overfitting and make the model generalize better.
+The callbacks also have been provided with a logger file which will log in all the model's hyper-params.
+'''
+
 import datetime
 import tensorflow as tf
 from .model import setup_model
@@ -11,12 +17,15 @@ model = setup_model(CONFIG.MODEL_NAME, CONFIG.LEARNING_RATE)
 timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 train_dataset, val_dataset = create_model_dataset()
 
+# Stops the model if the validation loss is not improving for 2 epochs.
 earlystop_cb = tf.keras.callbacks.EarlyStopping(
     monitor='val_loss',
     patience=2,
     restore_best_weights=True
 )
 
+# Creates a checkpoint to save the model.
+# Model is saved in its entireity (architecture, weights etc.).
 checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
     filepath=f'{CONFIG.OUTPUT_DIR_MODEL}/best_model_{timestamp}_epoch-{{epoch:02d}}_loss-{{val_loss:.4f}}.keras',
     save_best_only=True,
@@ -26,6 +35,8 @@ checkpoint_cb = tf.keras.callbacks.ModelCheckpoint(
     verbose=1
 )
 
+# When the model's validation loss is not improving for the said epochs then,
+# this callback will reduce the Learning Rate by the Factor and then wait for another (in this case 2) epochs.
 reduce_lr_cb = tf.keras.callbacks.ReduceLROnPlateau(
     factor=0.5,
     patience=2,
@@ -34,6 +45,7 @@ reduce_lr_cb = tf.keras.callbacks.ReduceLROnPlateau(
     verbose=1
 )
 
+# Logs everything.
 csv_logger_cb = tf.keras.callbacks.CSVLogger(
     filename=f'logs/training_log_{timestamp}.csv',
     append=True
@@ -49,6 +61,7 @@ def training_gpt2_small():
         num_samples = sum(1 for line in fp if "<|endoftext|>" in line)
     VAL_STEPS = math.ceil(num_samples / CONFIG.BATCH_SIZE)'''
 
+    # Training the model.
     history = model.fit(
         train_dataset,
         validation_data=val_dataset,

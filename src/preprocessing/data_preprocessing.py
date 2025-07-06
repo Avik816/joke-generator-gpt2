@@ -1,3 +1,17 @@
+'''
+This script preprocesses the raw full csv files.
+It clears the data from any of the folllowing:
+    1. URLs.
+    2. Any kind of HTML entries.
+    3. Any kind of redundant square brackets.
+    4. Changing the quations from curly quotes to UTF-8 encoded quotes.
+    5. Removing emojis if there was any.
+    6. Removing any reddit based patterns whent he jokes were originally scrapped.
+    7. Removing any rows that had questions of length < 5 (according to string length).
+    8. Finally formatting the jokes into GPT-2 based input. E.g.:
+        Q: joke setup. A: joke punchline. <|endoftext|>
+'''
+
 import polars
 import re
 

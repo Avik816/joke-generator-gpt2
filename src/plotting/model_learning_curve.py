@@ -1,3 +1,6 @@
+# This script plots and saves the plot for training loss vs validation loss.
+# This script prints the model's learning curve.
+
 import matplotlib.pyplot as mplot
 from ..CONFIG import OUTPUT_DIR_PLOT
 
