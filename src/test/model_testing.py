@@ -3,6 +3,7 @@ from .. import CONFIG
 from ..data_for_model.model_data_2 import load_dataset
 import math
 
+
 # Loading model and tokenizer
 model = tf.keras.models.load_model() # Model path to be added later
 
