@@ -17,10 +17,8 @@ data_splitting()"""
 print('\n\nModel Training ...')
 training_gpt2_small()
 
-'''
 print('\n\nModel Testing and Evaluation ...')
 model_testing_evaluation()
 
 print('\n\nSample joke generation ...')
-generate_joke()
-'''
+print(generate_joke())

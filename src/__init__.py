@@ -3,7 +3,7 @@ from .raw_dataset_related.raw_dataset_maker import full_raw_dataset_creation
 from .preprocessing.data_preprocessing import cleaning_dataset
 from .data_for_model.model_data_1 import data_splitting
 #from .data_for_model.model_data_2 import create_model_dataset
-from .joke_trainer.train import training_gpt2_small
+from .model_trainer.train import training_gpt2_small
 from .test.model_testing import model_testing_evaluation
 from .test.model_generate import generate_joke
 
