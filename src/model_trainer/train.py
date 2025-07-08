@@ -79,7 +79,7 @@ def training_gpt2_small():
         callbacks=[earlystop_cb, checkpoint_cb, reduce_lr_cb, csv_logger_cb]
     )
 
-    # Saving model
+    # Saving model and tokenizer
     model.save_pretrained(f'{CONFIG.OUTPUT_DIR_MODEL}/joke_generator_v1')
     tokenizer.save_pretrained(CONFIG.OUTPUT_DIR_TOKENIZER)
 
