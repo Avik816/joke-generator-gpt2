@@ -6,8 +6,8 @@ The callbacks also have been provided with a logger file which will log in all t
 
 import datetime
 import tensorflow as tf
-from transformers import GPT2Tokenizer
-from .model import setup_model
+
+from .model import setup_model_and_tokenizer
 from ..data_for_model.model_data_2 import create_model_dataset
 from .. import CONFIG
 from ..plotting.model_learning_curve import plot_learning_curve
@@ -15,11 +15,7 @@ from ..plotting.model_learning_curve import plot_learning_curve
 
 
 # Loading the model to train
-model = setup_model(CONFIG.MODEL_NAME, CONFIG.LEARNING_RATE)
-
-# Loading tokenizer and defining pad token
-tokenizer = GPT2Tokenizer.from_pretrained(CONFIG.MODEL_NAME)
-tokenizer.pad_token = tokenizer.eos_token  # GPT-2 has no pad_token, so we use eos_token of GPT2
+model, tokenizer = setup_model_and_tokenizer(CONFIG.MODEL_NAME, CONFIG.LEARNING_RATE)
 
 train_dataset, val_dataset = create_model_dataset(tokenizer)
 
