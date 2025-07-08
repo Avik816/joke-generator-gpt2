@@ -7,13 +7,16 @@ For fine-tuning the GPT-2 model's top 3 decoder layers and the lm_layer were kep
 By default the model will be saved in the .cache folder (in windows), unless a custom env is set.
 '''
 
-from ..data_for_model.model_data_2 import tokenizer
-from transformers import TFGPT2LMHeadModel
+from transformers import TFGPT2LMHeadModel, GPT2Tokenizer
 import tensorflow as tf
 
 
-def setup_model(model_name, learning_rate):
-    # Loading model and setting up the tokenizer
+def setup_model_and_tokenizer(model_name, learning_rate):
+    # Loading tokenizer and defining pad token
+    tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+    tokenizer.pad_token = tokenizer.eos_token  # GPT-2 has no pad_token, so we use eos_token of GPT2
+
+    # Loading model and setting up with the tokenizer
     gpt2_small_model = TFGPT2LMHeadModel.from_pretrained(model_name)
     gpt2_small_model.resize_token_embeddings(len(tokenizer))
     gpt2_small_model.config.pad_token_id = tokenizer.pad_token_id
@@ -57,4 +60,4 @@ def setup_model(model_name, learning_rate):
     '''for layer in gpt2_small_model.layers:
         print(layer.name)'''
 
-    return gpt2_small_model
+    return gpt2_small_model, tokenizer
