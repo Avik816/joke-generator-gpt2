@@ -79,12 +79,8 @@ A buffer of 1000 is used.
 '''
 
 import tensorflow as tf
-from transformers import GPT2Tokenizer
 from .. import CONFIG
 
-# Load tokenizer and define pad token
-tokenizer = GPT2Tokenizer.from_pretrained(CONFIG.MODEL_NAME)
-tokenizer.pad_token = tokenizer.eos_token  # GPT-2 has no pad_token, so we use eos_token
 
 # Function to encode each example
 def encode_example(line):
@@ -95,6 +91,7 @@ def encode_example(line):
         max_length=CONFIG.BLOCK_SIZE,
         return_attention_mask=True
     )
+
     input_ids = tf.convert_to_tensor(encoded['input_ids'], dtype=tf.int32)
     attention_mask = tf.convert_to_tensor(encoded['attention_mask'], dtype=tf.int32)
     labels = tf.convert_to_tensor(encoded['input_ids'], dtype=tf.int32)
@@ -119,7 +116,7 @@ def tf_encode_example(line):
     }
 
 # Generic loader with shuffle and prefetch
-def load_dataset(file_path, shuffle):
+def load_dataset(file_path, shuffle, tokenizer):
     dataset = tf.data.TextLineDataset(file_path)
     if shuffle == True:
         dataset = dataset.shuffle(buffer_size=1000)  # ✅ Shuffle for generalization
@@ -141,10 +138,10 @@ def load_dataset(file_path, shuffle):
     
     return dataset
 
-# Main function to return datasets
-def create_model_dataset():
-    train_dataset = load_dataset(CONFIG.TRAIN_PATH, shuffle=True)
-    val_dataset = load_dataset(CONFIG.VAL_PATH, shuffle=False)
+# Function to return datasets
+def create_model_dataset(tokenizer):
+    train_dataset = load_dataset(CONFIG.TRAIN_PATH, True, tokenizer)
+    val_dataset = load_dataset(CONFIG.VAL_PATH, False, tokenizer)
     # test_dataset = load_dataset(CONFIG.TEST_PATH)
     
     return train_dataset, val_dataset
