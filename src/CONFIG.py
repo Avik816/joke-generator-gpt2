@@ -12,11 +12,12 @@ OUTPUT_DIR_MODEL_WEIGHTS = 'model_weights'
 OUTPUT_DIR_MODEL = 'saved_model'
 OUTPUT_DIR_TOKENIZER = 'tokenizer'
 OUTPUT_DIR_PLOT = 'plots'
-BEST_MODEL_PATH = 'models/best_model_20250707-000312_epoch-13_loss-0.0008.keras'
+SAVED_MODEL_PATH = 'saved_model/joke_generator_v1'
+BEST_MODEL_WEIGHTS_PATH = 'model_weights/model_weights_20250709-073531_epoch-04_val_loss-0.002097.h5'
 
 # Model hyper-parameters
 BATCH_SIZE = 4
 EPOCHS = 100
 BLOCK_SIZE = 50
 LEARNING_RATE = 5e-5
-BEST_LR = '' # to be added after training
+BEST_LR = 5e-5

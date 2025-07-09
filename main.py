@@ -12,13 +12,13 @@ print('\n\nPreprocessing the dataset ...')
 cleaning_dataset()
 
 print('\n\nSplitting dataset into Train-Val-Test ...')
-data_splitting()"""
+data_splitting()
 
 print('\n\nModel Training ...')
 training_gpt2_small()
 
-'''print('\n\nModel Testing and Evaluation ...')
-model_testing_evaluation()
+print('\n\nModel Testing and Evaluation ...')
+print(model_testing_evaluation())"""
 
 print('\n\nSample joke generation ...')
-print(generate_joke())'''
+print(generate_joke())

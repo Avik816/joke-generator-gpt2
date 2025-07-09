@@ -4,5 +4,7 @@ __pycache__/
 *.pyd
 
 /logs/
+/tokenizer/
 /saved_model/
 /model_weights/
+/plots/
