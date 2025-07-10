@@ -1,6 +1,13 @@
 # Main entry point of the system.
 
 from src import *
+import warnings
+import transformers
+
+# Set the verbosity to 'error', which will suppress warnings and info messages
+transformers.logging.set_verbosity_error()
+
+warnings.filterwarnings('ignore')
 
 """print('\nDownloading Dataset from HuggingFace ... ')
 download_dataset()
