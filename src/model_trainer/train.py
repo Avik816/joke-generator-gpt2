@@ -24,7 +24,7 @@ timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 # Stops the model if the validation loss is not improving for 2 epochs.
 earlystop_cb = tf.keras.callbacks.EarlyStopping(
     monitor='val_loss',
-    patience=2,
+    patience=3,
     restore_best_weights=True
 )
 
@@ -76,7 +76,7 @@ def training_gpt2_small():
     )
 
     # Saving model and tokenizer
-    model.save_pretrained(f'{CONFIG.OUTPUT_DIR_MODEL}/joke_generator_v1')
+    model.save_pretrained(f'{CONFIG.OUTPUT_DIR_MODEL}/joke_generator_v2')
     tokenizer.save_pretrained(CONFIG.OUTPUT_DIR_TOKENIZER)
 
     # Plotting the learning curve of the present model
