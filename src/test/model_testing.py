@@ -12,6 +12,7 @@ def model_testing_evaluation():
 
     # Loading model
     model = TFGPT2LMHeadModel.from_pretrained(CONFIG.SAVED_MODEL_PATH)
+    model.resize_token_embeddings(len(tokenizer))
     model.config.pad_token_id = tokenizer.pad_token_id
 
     # Compiling the model
@@ -20,6 +21,8 @@ def model_testing_evaluation():
         optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
         loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
     )
+
+    model.load_weights('model_weights/model_weights_20250711-062654_epoch-01_val_loss-0.033497.h5')
 
     # Test Set data
     test_set = load_dataset(CONFIG.TEST_PATH, False, tokenizer)

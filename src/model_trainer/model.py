@@ -50,7 +50,7 @@ def setup_model_and_tokenizer(model_name, learning_rate):
 
     # Compiling model
     gpt2_small_model.compile(
-        optimizer=tf.keras.optimizers.Adam(learning_rate=learning_rate),
+        optimizer=tf.keras.optimizers.AdamW(learning_rate=learning_rate),
         loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
     )
 

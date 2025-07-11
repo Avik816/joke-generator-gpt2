@@ -1,31 +1,48 @@
-# Main entry point of the system.
-
-from src import *
+from src import (
+    download_dataset,
+    full_raw_dataset_creation,
+    cleaning_dataset,
+    data_splitting,
+    training_gpt2_small,
+    model_testing_evaluation,
+    generate_joke
+)
+import os
 import warnings
-import transformers
+import logging
 
-# Set the verbosity to 'error', which will suppress warnings and info messages
-transformers.logging.set_verbosity_error()
+# Setting environment variables to suppress TensorFlow C++ logs
+# '2' means suppress all INFO and WARNING messages
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-warnings.filterwarnings('ignore')
+# Explicitly setting TF_ENABLE_ONEDNN_OPTS=0 to silence that specific message
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
 
-"""print('\nDownloading Dataset from HuggingFace ... ')
+# Using a blanket filter to ignore all warnings from all libraries
+warnings.filterwarnings("ignore")
+
+# Setting logging levels for specific libraries
+logging.getLogger("transformers").setLevel(logging.ERROR)
+logging.getLogger("tensorflow").setLevel(logging.ERROR)
+logging.getLogger("huggingface_hub").setLevel(logging.ERROR)
+
+"""print('\nDOWNLOADING DATASET from HuggingFace ... ')
 download_dataset()
 
-print('\n\nCreating the raw full dataset ...')
+print('\n\nCREATING FULL RAW DATASET ...')
 full_raw_dataset_creation()
 
-print('\n\nPreprocessing the dataset ...')
+print('\n\nPREPROCESSING THE DATASET ...')
 cleaning_dataset()
 
-print('\n\nSplitting dataset into Train-Val-Test ...')
+print('\n\nSPLITTING DATASET into TRAIN-VAL-TEST SETS ...')
 data_splitting()
 
-print('\n\nModel Training ...')
-training_gpt2_small()
+print('\n\nMODEL TRAINING ...')
+training_gpt2_small()"""
 
-print('\n\nModel Testing and Evaluation ...')
-print(model_testing_evaluation())"""
+print('\n\nMODEL TESTING and EVALUATION ...')
+print(model_testing_evaluation())
 
-print('\n\nSample joke generation ...')
+print('\n\nSAMPLE JOKE GENERATION ...')
 print(generate_joke())
